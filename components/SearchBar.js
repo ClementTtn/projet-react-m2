@@ -1,6 +1,8 @@
 "use client"
 
 import { useRouter } from 'next/navigation'
+import { Button } from 'primereact/button'
+import { InputText } from "primereact/inputtext"
 
 const SearchBar = () => {
     const router = useRouter()
@@ -13,14 +15,10 @@ const SearchBar = () => {
     return (
         <div>
             <form onSubmit={onSubmit}>
-                <input type="text" id="search" name="search" />
-                <button type="submit">
-                    Search
-                </button>
-                <button type="button" onClick={() => { router.push('/') }}>
-                    Reset
-                </button>
-                <div>
+                <InputText type="text" id="search" name="search" className="p-inputtext-sm" />
+                <Button label="Search" size="small" type="submit" className="mx-2" />
+                <Button label="Reset" size="small" severity="secondary" type="button" onClick={() => { router.push('/') }} />
+                <div className="mt-2">
                     <input
                         type="radio"
                         id="all"
@@ -28,21 +26,21 @@ const SearchBar = () => {
                         value="all"
                         defaultChecked
                     />
-                    <label>All</label>
+                    <label className="mx-1">All</label>
                     <input
                         type="radio"
                         id="repositories"
                         name="typeSource"
                         value="repositories"
                     />
-                    <label>Repositories</label>
+                    <label className="mx-1">Repositories</label>
                     <input
                         type="radio"
                         id="users"
                         name="typeSource"
                         value="users"
                     />
-                    <label>Users</label>
+                    <label className="mx-1">Users</label>
                 </div>
             </form>
         </div>

@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import { formatDistanceToNow } from 'date-fns'
+import {Avatar} from "primereact/avatar"
 
 const UserProfile = async ({ params }) => {
     const { name } = params
@@ -22,13 +24,17 @@ const UserProfile = async ({ params }) => {
     }
 
     return (
-        <div>
-            <img src={user.avatar_url} alt={`${user.login}`} width={100} height={100} />
-            <p>{user.name}</p>
-            <p>{user.login}</p>
+        <div className="mt-4">
+            <div className="flex gap-4">
+                <Avatar image={user.avatar_url} size="xlarge" shape="circle" />
+                <div>
+                    <p>{user.name}</p>
+                    <p className="text-500 text-sm">{user.login}</p>
+                </div>
+            </div>
             <p>{user.bio}</p>
             <p>{user.location}</p>
-            <p>Joined about {user.created_at}</p>
+            <p>Joined about {formatDistanceToNow(user.created_at, {addSuffix: true})}</p>
 
             <h2>Repositories</h2>
             <ul>

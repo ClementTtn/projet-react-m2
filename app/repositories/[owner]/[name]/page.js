@@ -1,3 +1,4 @@
+import { formatDistanceToNow } from 'date-fns'
 const RepositoryPage = async ({ params }) => {
     const { owner, name } = params
 
@@ -14,27 +15,23 @@ const RepositoryPage = async ({ params }) => {
         }
     })
     const commits = await fetchCommits.json()
+    console.log(commits)
 
     if (!repository) {
         return <div>Chargement...</div>
     }
 
     return (
-        <div>
-            <h1>Repository: {repository.name}</h1>
-            <p>Description: {repository.description || 'Pas de description'}</p>
-            <p>Langage principal: {repository.language || 'Non spécifié'}</p>
-            <p>Nombre d'étoiles: {repository.stargazers_count}</p>
-            <p>Nombre de forks: {repository.forks_count}</p>
-            <p>Dernière mise à jour: {new Date(repository.updated_at).toLocaleDateString()}</p>
-            <a href={repository.html_url} target="_blank" rel="noopener noreferrer">Voir sur GitHub</a>
-
-            <h2>Commits</h2>
+        <div className="mt-4">
+            <p className="text-2xl font-bold">{repository.name}</p>
+            <p>{repository.description || 'Pas de description'}</p>
+            <p className="text-1xl font-bold mt-6">Commits</p>
             <ul>
                 {commits.map(commit => (
                     <li key={commit.sha}>
-                        <p><strong>{commit.commit.message}</strong> par {commit.commit.author.name}</p>
-                        <p>Date: {new Date(commit.commit.author.date).toLocaleDateString()}</p>
+                        <a href={commit.html_url} target="_blank">
+                            <p>{commit.commit.author.name} | {formatDistanceToNow(commit.commit.author.date, {addSuffix: true})} | {commit.commit.message}</p>
+                        </a>
                     </li>
                 ))}
             </ul>

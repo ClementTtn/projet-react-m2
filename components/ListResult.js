@@ -47,7 +47,6 @@ const ListResult = async ({ searchParams }) => {
             <SearchBar />
             {typeSource !== undefined && (
                 <div>
-                    <h1>Résultats de la recherche</h1>
                     {typeSource === 'users' ? (
                         <ul>
                             {results.map((result) => (
